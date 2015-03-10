@@ -1,2 +1,2 @@
-# ObjectC-Tips
-tips about object-c ..continue updates
+# ObjectiveC-Tips
+tips about objective-c ..continue updates
