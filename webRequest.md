@@ -26,9 +26,9 @@
     	//1.0 SBJson库 nsdata ---->nsdictionary
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         NSDictionary *dic = [parser objectWithData:data];
-       //2.0 系统自带库 nsdata ---->nsdictionary
-       NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSUTF8StringEncoding error:nil];
-       }];
+        //2.0 系统自带库 nsdata ---->nsdictionary
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSUTF8StringEncoding error:nil];
+        }];
        
 ---
 ##### AFNetworking实现POST网络请求
@@ -54,7 +54,7 @@ url所带参数使用dictionary 类型params传递，不需要我们自己再次
 	NSString *signString = dict[@"sign"];
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",orderSpec, signString , @"RSA"];
     //
-而用代码转换之后的字符串[self urlValueEncode:signString],所使用函数如下所示
+而用代码转换之后的字符串[self urlValueEncode:signString],函数体实现如下:
 	
 	- (NSString *)urlValueEncode:(NSString*)str
 	{
@@ -62,5 +62,8 @@ url所带参数使用dictionary 类型params传递，不需要我们自己再次
     	NSLog(@"Sign=%@",result);
     	return result;
 	}
+###### 支付宝私钥使用注意事项
+为安全着想，建议在后台实现支付宝签名事项，使用参数有支付宝公钥，商户私钥，订单信息进行签名。签名函数有
 
+	 id<DataSigner> signer = CreateRSADataSigner(privateKey);//遵循RSA签名规范，根据私钥得到编码方式	NSString *signedString = [signer signString:orderSpec];//将商户信息签名。
 
